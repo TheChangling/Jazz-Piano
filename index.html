@@ -6,25 +6,29 @@
 <meta name="apple-mobile-web-app-title" content="Piano Studio">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
-<meta name="theme-color" content="#2a5ba5">
+<meta name="theme-color" content="#ffffff">
 
 <title>Piano Practice Studio</title>
 <style>
-:root{--bg:#faf8f4;--fg:#1d1d1f;--mut:#6b6b70;--card:#fff;--line:#e2ded6;--wk:#fdfdfb;--bk:#222;--ac:#d9772b;--acd:#b85d17;--btn:#efebe3;--lh:#3a7bd5;--lhd:#2a5ba5;--mc:#2f9e6b;--mcd:#1f7a50;
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#6b6b70;--card:#fff;--line:#e2ded6;--wk:#fdfdfb;--bk:#222;--ac:#d9772b;--acd:#9c4c0e;--btn:#efebe3;--btn2:#f8f7f5;--bd:#b3ac9f;--bd2:#6c4a31;--on:#b3ac9f;--onb:#634026;--onfg:#1d1d1f;--lh:#3a7bd5;--lhd:#2a5ba5;--mc:#2f9e6b;--mcd:#1f7a50;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16171a;--fg:#ececee;--mut:#9a9aa2;--card:#1f2024;--line:#33353b;--wk:#d8d6d0;--bk:#0b0b0c;--ac:#f08a3c;--acd:#ffb072;--btn:#2a2b31;--lh:#4a8be0;--lhd:#6aa6ff;--mc:#3fbf85;--mcd:#2f9e6b}}
-:root[data-theme="dark"]{--bg:#16171a;--fg:#ececee;--mut:#9a9aa2;--card:#1f2024;--line:#33353b;--wk:#d8d6d0;--bk:#0b0b0c;--ac:#f08a3c;--acd:#ffb072;--btn:#2a2b31;--lh:#4a8be0;--lhd:#6aa6ff;--mc:#3fbf85;--mcd:#2f9e6b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--btn2:#242529;--bd:#4a4740;--bd2:#a88a6e;--on:#6e665a;--onb:#a88a6e;--onfg:#fff;--bg:#16171a;--fg:#ececee;--mut:#9a9aa2;--card:#1f2024;--line:#33353b;--wk:#d8d6d0;--bk:#0b0b0c;--ac:#f08a3c;--acd:#ffb072;--btn:#2a2b31;--lh:#4a8be0;--lhd:#6aa6ff;--mc:#3fbf85;--mcd:#2f9e6b}}
+:root[data-theme="dark"]{--btn2:#242529;--bd:#4a4740;--bd2:#a88a6e;--on:#6e665a;--onb:#a88a6e;--onfg:#fff;--bg:#16171a;--fg:#ececee;--mut:#9a9aa2;--card:#1f2024;--line:#33353b;--wk:#d8d6d0;--bk:#0b0b0c;--ac:#f08a3c;--acd:#ffb072;--btn:#2a2b31;--lh:#4a8be0;--lhd:#6aa6ff;--mc:#3fbf85;--mcd:#2f9e6b}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 Georgia,'Times New Roman',serif}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
 main{max-width:980px;margin:0 auto;padding:18px 14px 48px}
-h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.1rem;margin:24px 0 6px}
+h1,h2{letter-spacing:.05em;font-weight:500}h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.1rem;margin:24px 0 6px}
+main>h1,#tab-songbook>h2,#tab-scales>h2{border-bottom:4px solid var(--bd2);padding-bottom:3px}
 .mut{color:var(--mut);font-size:.88rem}
-button,select,textarea{font:inherit;font-size:.92rem;border:1px solid var(--line);background:var(--btn);color:var(--fg);padding:6px 10px;border-radius:8px}
-button{cursor:pointer}textarea{width:100%;box-sizing:border-box;background:var(--card);font-family:ui-monospace,Menlo,monospace;min-height:70px}
+button,select,textarea{font:inherit;font-size:.92rem;border:1px solid var(--bd2);background:var(--btn);color:var(--fg);padding:6px 10px;border-radius:8px}
+textarea{border-color:var(--bd)}
+input[type=number]{font:inherit;font-size:.92rem;border:1px solid var(--bd);border-radius:8px;padding:6px 10px;background:var(--card);color:var(--fg)}
+#dia button[data-c],#pal button,#pal select,#rt,#qu,#bs,#add,#nb,#clr,#play,#stop{background:var(--btn2);border-color:var(--bd)}
+button{cursor:pointer}textarea{width:100%;box-sizing:border-box;background:var(--card);font-family:inherit;min-height:70px}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px}
 .sc{overflow-x:auto}
-.bar{border:1px solid var(--line);border-radius:12px;padding:8px;margin:0;background:var(--card);flex:0 1 auto;max-width:100%}
+.bar{border:1px solid var(--bd);border-radius:12px;padding:8px;margin:0;background:var(--card);flex:0 1 auto;max-width:100%}
 #chart{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
 .bn{font:11px sans-serif;color:var(--mut);margin-bottom:4px}
 .bc{display:flex;flex-wrap:wrap;gap:10px}
@@ -35,12 +39,12 @@ button{cursor:pointer}textarea{width:100%;box-sizing:border-box;background:var(-
 .fg{font:11px sans-serif;color:var(--mut);margin-top:2px}
 .err{color:#c0392b;font-size:.9rem}
 
-.tabs{display:flex;gap:6px;margin:8px 0 14px}.tabs button{flex:1;padding:8px 6px}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.sigb{padding:2px 3px;line-height:0}.sigb.on{background:var(--card);outline:2px solid var(--ac)}
-.pd{touch-action:none;cursor:grab;padding:2px 9px;line-height:0}.pd.on,.pt.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tabs{display:flex;gap:6px;margin:8px 0 14px}.tabs button{flex:1;padding:8px 6px}.tabs button.on{background:var(--on);color:var(--onfg);border-color:var(--onb)}
+.sigb{padding:2px 3px;line-height:0;background:var(--card);border-color:var(--bd)}.sigb.on{background:var(--card);outline:2px solid var(--ac)}
+.pd{touch-action:none;cursor:grab;padding:2px 9px;line-height:0}.pd.on,.pt.on{background:var(--on);color:var(--onfg);border-color:var(--on)}
 .gh{position:fixed;pointer-events:none;transform:translate(-50%,-50%);z-index:9;color:var(--ac);opacity:.9;line-height:0}
 #mst svg{touch-action:pan-x pan-y;user-select:none}
-#tab-scales button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+#tab-scales button.on{background:var(--on);color:var(--onfg);border-color:var(--on)}
 #tab-scales .card{margin:12px 0}
 section[hidden]{display:none}
 #tab-help p{margin:6px 0}#tab-help h3{margin:18px 0 2px;font-size:1rem}#tab-help code{background:var(--btn);padding:0 4px;border-radius:4px}
@@ -49,7 +53,7 @@ section[hidden]{display:none}
 #tab-practice p.lead{color:var(--mut);margin:0 0 16px}
 #tab-practice .row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 #tab-practice button{font:inherit;font-size:.92rem;border:1px solid var(--line);background:var(--btn);color:var(--fg);padding:6px 12px;border-radius:8px;cursor:pointer}
-#tab-practice button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+#tab-practice button.on{background:var(--on);color:var(--onfg);border-color:var(--on)}
 #tab-practice .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0}
 #tab-practice .card p{margin:2px 0 10px;color:var(--mut);font-size:.9rem}
 #tab-practice .chords{display:flex;flex-wrap:wrap;gap:14px}
@@ -66,28 +70,29 @@ section[hidden]{display:none}
 #tab-practice small{color:var(--mut)}
 
 </style></head><body><main>
-<h1>Piano Practice Studio</h1>
+<h1>PIANO PRACTICE STUDIO</h1>
 <div class="tabs"><button data-t="songbook" class="on">Songbook</button><button data-t="scales">Song scales</button><button data-t="practice">Chord changes</button><button data-t="exercises">Exercises</button><button data-t="help">Instructions</button></div>
 <section id="tab-songbook">
-<h2>1. Key, scale and fingering</h2>
+<div class="row"><label><select id="pre"><option value="">Choose a song…</option></select></label></div>
+<h2>KEY, SCALE AND FINGERING</h2>
 <div class="row" id="sigs"></div>
 <div class="row"><label>Key: <select id="key"></select></label> <select id="mode"><option value="0">Major</option><option value="1">Natural minor</option></select> <label>Scale in <select id="shand"><option value="R">right hand</option><option value="L">left hand</option></select></label></div>
 <div class="card"><div class="row" style="align-items:flex-start;gap:16px"><div id="staff"></div><div style="flex:1 1 260px;min-width:0"><div class="sc" id="skb"></div><div class="mut" id="sfg"></div></div></div></div>
 
-<h2>2. Chords</h2>
-<textarea id="txt" spellcheck="false"></textarea>
-<div class="row"><select id="rt"></select><select id="qu"></select><select id="bs"><option value="">no slash bass</option></select><button id="add">Add chord</button><button id="nb">New bar |</button><button id="clr">Clear</button><select id="pre"><option value="">Choose a song…</option></select></div>
-<div class="row" id="dia"></div>
-<div id="msg" class="err"></div>
-<div class="row"><input id="sn" placeholder="Song name" style="font:inherit;font-size:.92rem;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg)"><button id="sv">Save to My songs</button><button id="dl">Delete this name</button><button id="bkb">Back up songs</button><button id="rst">Restore from backup</button></div>
+<h2>CHORDS</h2>
+<div class="row"><input id="sn" placeholder="Song name" style="font:inherit;font-size:.92rem;padding:6px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg)"><button id="sv">Save to My songs</button><button id="dl">Delete this name</button><button id="bkb">Back up songs</button><button id="rst">Restore from backup</button></div>
 <textarea id="bk" hidden spellcheck="false" placeholder="Your backup text appears here. To restore, paste it here and press Restore."></textarea>
-<h2>3. Melody</h2>
+<div class="row" id="dia"></div>
+<div class="row"><select id="rt"></select><select id="qu"></select><select id="bs"><option value="">no slash bass</option></select><button id="add">Add chord</button><button id="nb">New bar |</button><button id="clr">Clear</button></div>
+<textarea id="txt" spellcheck="false"></textarea>
+<div id="msg" class="err"></div>
+<h2>MELODY</h2>
 <textarea id="mel" spellcheck="false" placeholder="Type the melody bar by bar, matching the chord bars above. Example: F4 A4 D5 B4 | C5:4"></textarea>
 <div class="row"><label>Time <select id="bpb"><option value="4">4/4</option><option value="3">3/4</option><option value="2">2/4</option></select></label></div>
 <div class="row" id="pal"></div>
 <div id="mmsg" class="err"></div>
 <div class="card sc" id="mst" hidden></div>
-<h2>4. Arrangement, voicings and fingerings</h2>
+<h2>ARRANGEMENT, VOICINGS AND FINGERINGS</h2>
 <div class="row"><label>Arrangement: <select id="arr"><option value="none">Chords only</option><option value="RM">Melody right hand, chords left</option><option value="LM">Melody left hand, chords right</option><option value="OC">Melody in octaves (right), chords left</option><option value="RB">Melody on top of chords (right), bass left</option></select></label><label id="hl">Chord in <select id="hand"><option value="R">right hand</option><option value="L">left hand</option></select></label><label>Style: <select id="sty"><option value="">Close 4-note</option><option value="shell">Shell (3rd + 7th)</option><option value="spread">Spread (3rd, 7th, 9th/13th)</option></select></label><label id="ol">Other hand: <select id="lhm"><option value="">None</option><option value="root">Root</option><option value="fifth">Root + 5th</option><option value="walk">Walking line</option></select></label><label>Tempo <input id="bpm" type="number" value="70" min="40" max="200" style="width:64px"></label><button id="play">▶ Play</button><button id="stop">■ Stop</button></div>
 <div id="chart"></div>
 </section>
@@ -115,12 +120,12 @@ section[hidden]{display:none}
 <section id="tab-help" hidden>
 <h2>Instructions</h2>
 <h3>Songbook</h3>
-<p>1. <b>Key, scale and fingering.</b> Tap a key-signature button, or use the drop-downs, to choose a key. The staff shows the scale and the keyboard shows the fingering numbers, going up. You can switch to the left hand or to natural minor. Minor-key fingerings are the common ones, so check them with your teacher.</p>
-<p>2. <b>Chords.</b> Type bars separated by <b>|</b> and chords separated by spaces, for example <code>Dm7 G7 | Cmaj7</code>, or build them with the selectors. Supported: maj7, m7, 7, m7b5, dim7, 6, m6, maj9, m9, 9, 13, 7b9, 7#9, major and minor triads, and slash chords such as <code>C/E</code> or <code>Dm7/G</code> (the note after the slash is the bass). Use <b>b</b> and <b>#</b> for flats and sharps.</p>
+<p><b>Key, scale and fingering.</b> Tap a key-signature button, or use the drop-downs, to choose a key. The staff shows the scale and the keyboard shows the fingering numbers, going up. You can switch to the left hand or to natural minor. Minor-key fingerings are the common ones, so check them with your teacher.</p>
+<p><b>Chords.</b> Type bars separated by <b>|</b> and chords separated by spaces, for example <code>Dm7 G7 | Cmaj7</code>, or build them with the selectors. Supported: maj7, m7, 7, m7b5, dim7, 6, m6, maj9, m9, 9, 13, 7b9, 7#9, major and minor triads, and slash chords such as <code>C/E</code> or <code>Dm7/G</code> (the note after the slash is the bass). Use <b>b</b> and <b>#</b> for flats and sharps.</p>
 <p><b>Songs.</b> The drop-down holds forms and public-domain tunes, with changes written from memory, so check them against your own score. “My songs” are saved in this browser on this device only. Browsers can clear saved data, so use Back up songs now and then, and keep the text in Notes. To restore, paste it into the box and press Restore from backup. Real Book charts are copyrighted, so enter the changes from your own copy.</p>
-<p>3. <b>Chart.</b> Each chord gets the closest-moving voicing, with the progression labelled above it, plus a Roman numeral and a suggested scale. Use the drop-down under a chord to choose another voicing, and the following chords will adjust.</p>
+<p><b>Chart.</b> Each chord gets the closest-moving voicing, with the progression labelled above it, plus a Roman numeral and a suggested scale. Use the drop-down under a chord to choose another voicing, and the following chords will adjust.</p>
 <p><b>Hands.</b> Choose which hand plays the chord, the style (close, shell or spread) and what the other hand does (root, root + 5th or a walking line). Orange keys are the chord and blue keys are the other hand. In left-hand chords, shell and spread voicings keep the root on the bottom. Right-hand fingers run lowest to highest, and rootless voicings (9ths, 13ths, 7♭9) leave the root to the other hand.</p>
-<p><b>Melody and arrangement.</b> Build the melody on the staff under 3: drag a note value (whole, half, quarter, eighth) onto a bar, or pick one and tap the staff. Height sets the pitch and position sets the beat (snapped to half beats). Use Dotted and Rest for dotted notes and rests. <b>Sharps and flats:</b> the Sharp or flat buttons are Auto, ♯, ♭ and ♮. Auto follows the key signature chosen in 1. Pick ♯ or ♭, then drop a note, or tap a note already on the staff to change it; pick Auto to go back. With Auto selected, tapping a note or rest deletes it. A whole note fills the bar, and a note that runs past a bar line is split and tied automatically. You can also type the melody in the box, one bar per chord bar, for example <code>F4 A4 D5 B4 | C5:4</code>: note name, octave, then <code>:beats</code> (default 1), b or # for flats and sharps, r for a rest, | between bars, and a ~ on the end to tie a note to the next one. C4 is middle C. The time selector beside the box sets 4/4, 3/4 or 2/4. Under 4 choose an arrangement: melody right with chords left (your usual), the reverse, melody in octaves, or the melody on top of a block chord with a bass note in the left hand. Green keys are the melody, orange the chord and blue the other hand. Shell voicings suit a hand that also plays melody or bass. Melody notes are moved by octaves to sit above or below the chords, and Play includes the melody.</p>
+<p><b>Melody and arrangement.</b> Build the melody on the staff under MELODY: drag a note value (whole, half, quarter, eighth) onto a bar, or pick one and tap the staff. Height sets the pitch and position sets the beat (snapped to half beats). Use Dotted for dotted notes. The rest symbols beside the notes work the same way: drag or tap them onto the staff. <b>Sharps and flats:</b> the Sharp or flat buttons are Auto, ♯, ♭ and ♮. Auto follows the key signature chosen under KEY, SCALE AND FINGERING. Pick ♯ or ♭, then drop a note, or tap a note already on the staff to change it; pick Auto to go back. With Auto selected, tapping a note or rest deletes it. A whole note fills the bar, and a note that runs past a bar line is split and tied automatically. You can also type the melody in the box, one bar per chord bar, for example <code>F4 A4 D5 B4 | C5:4</code>: note name, octave, then <code>:beats</code> (default 1), b or # for flats and sharps, r for a rest, | between bars, and a ~ on the end to tie a note to the next one. C4 is middle C. The time selector beside the box sets 4/4, 3/4 or 2/4. Under ARRANGEMENT, VOICINGS AND FINGERINGS choose an arrangement: melody right with chords left (your usual), the reverse, melody in octaves, or the melody on top of a block chord with a bass note in the left hand. Green keys are the melody, orange the chord and blue the other hand. Shell voicings suit a hand that also plays melody or bass. Melody notes are moved by octaves to sit above or below the chords, and Play includes the melody.</p>
 <p><b>Playback.</b> Set the tempo and press Play. Your device’s sound must be on, and the iPad’s mute switch can silence it.</p>
 <h3>Song scales</h3>
 <p>Lists the scale for each different chord in the song on the Songbook tab, in the order they first appear. Chords that share a scale (for example Dm7 and Dm9) are grouped. Each card shows the notes on a staff and keyboard, one octave up and back down, in the right or left hand. Play uses the tempo from the Songbook tab, and Mark done lets you tick off scales as you practise them. The finger numbers under each note are suggestions: standard fingerings for the major scales, and a best-fit fingering worked out for the others (modes, diminished and altered scales), which may differ from your teacher's, so go with theirs if they disagree. Thumb is 1.</p>
@@ -166,7 +171,7 @@ const PRE={'Misty, bars 1–8 (E♭)':[9,'Ebmaj7 | Bbm7 Eb7 | Abmaj7 | Abm7 Db7 
 'Rhythm changes: I Got Rhythm (Gershwin, 1930)':[10,'Bbmaj7 Gm7 | Cm7 F7 | Dm7 G7 | Cm7 F7 | Fm7 Bb7 | Ebmaj7 Edim7 | Dm7 G7 | Cm7 F7 | Bbmaj7 Gm7 | Cm7 F7 | Dm7 G7 | Cm7 F7 | Fm7 Bb7 | Ebmaj7 Edim7 | Dm7 G7 | Cm7 F7 | D7 | D7 | G7 | G7 | C7 | C7 | F7 | F7 | Bbmaj7 Gm7 | Cm7 F7 | Dm7 G7 | Cm7 F7 | Fm7 Bb7 | Ebmaj7 Edim7 | Bbmaj7 Gm7 | Cm7 F7'],
 'Pachelbel Canon progression (D)':[2,'D | A | Bm | F#m | G | D | G | A'],
 'House of the Rising Sun (traditional)':[0,'Am | C | D | F | Am | C | E | E',1]};
-let NB=2,KX=46,hist=[],sel={d:1,dot:0,rest:0,acc:'key'},BPB=4,arr='none',mel0='',ki=9,ov={},sty='',lhm='',cur=null,ac=null,hand='R',shand='R';
+let dq='',NB=2,KX=46,hist=[],sel={d:1,dot:0,rest:0,acc:'key'},BPB=4,arr='none',mel0='',ki=9,ov={},sty='',lhm='',cur=null,ac=null,hand='R',shand='R';
 const $=id=>document.getElementById(id);
 const nmK=m=>(KEYS[ki][2]?SH:FL)[((m%12)+12)%12];
 const blk=m=>[1,3,6,8,10].includes(((m%12)+12)%12);
@@ -251,7 +256,7 @@ setTimeout(stop,(t-ac.currentTime+.5)*1000)}
 const block=(m,x)=>{const pc=Q[x.q].map(i=>(x.r+i)%12),b=[m];for(let p=m-1;b.length<4&&m-p<=14;p--)if(pc.includes(((p%12)+12)%12))b.push(p);return b.sort((a,b)=>a-b)};
 function melody(flat,map){const ev=[],bad=[],sp=[],rs=[];
 map.forEach((ids,bi)=>ids.forEach((i,p)=>sp[i]={s:bi*BPB+p*BPB/ids.length,e:bi*BPB+(p+1)*BPB/ids.length}));
-$('mel').value.split('|').map(b=>b.trim().split(/\s+/).filter(Boolean)).filter(b=>b.length).forEach((b,bi)=>{let off=0;b.forEach(tk=>{const tie=/~$/.test(tk),m=tk.replace(/~$/,'').match(/^([A-G])([#b♯♭]?)(-?\d)?(?::(\d*\.?\d+))?$|^[Rr](?::(\d*\.?\d+))?$/);
+$('mel').value.split('|').map(b=>b.trim().split(/\s+/).filter(Boolean)).filter(b=>b.length).forEach((b,bi)=>{let off=0;b.forEach(tk=>{const tie=/~$/.test(tk),m=tk.replace(/~$/,'').match(/^([A-G])([#b♯♭]?)(-?\d)?(?::(\d*\.?\d+))?$|^[Rr]:?(\d*\.?\d+)?$/);
 if(!m){bad.push(tk);return}
 if(m[1]){const d=+(m[4]||1),li=LET.indexOf(m[1]),o=m[3]!=null?+m[3]:4,df=/[#♯]/.test(m[2])?1:/[b♭]/.test(m[2])?-1:0,p=12*(o+1)+NP[li]+df;ev.push({p,m:p,pos:7*o+li,df,d,s:bi*BPB+off,bar:bi,off,tie});off+=d}else{const d=+(m[5]||1);rs.push({bar:bi,off,d});off+=d}})});
 $('mmsg').textContent=bad.length?'Not recognised in melody: '+bad.join(', '):'';
@@ -270,17 +275,19 @@ ME.forEach(e=>{const x=X(e.bar,e.off),y=Y(e.pos);for(let p=28;p>=e.pos;p-=2)s+=l
 s+=`<ellipse cx="${x}" cy="${y}" rx="5.5" ry="4" fill="${e.d<2?'var(--fg)':'none'}" stroke="var(--fg)" stroke-width="1.4" transform="rotate(-15 ${x} ${y})"/>`;
 if(e.d<4)s+=e.pos>=34?`<line x1="${x-5}" x2="${x-5}" y1="${y}" y2="${y+26}" stroke="var(--fg)"/>`:`<line x1="${x+5}" x2="${x+5}" y1="${y}" y2="${y-26}" stroke="var(--fg)"/>`;
 if(e.df!==(kd[LET[e.pos%7]]||0))s+=`<text x="${x-18}" y="${y+5}" font-size="14" fill="var(--fg)">${e.df>0?'♯':e.df<0?'♭':'♮'}</text>`;
-if([.75,1.5,3].includes(e.d))s+=`<circle cx="${x+10}" cy="${y}" r="1.5" fill="var(--fg)"/>`;s+=`<circle data-b="${e.bar}" data-o="${e.off}" cx="${x}" cy="${y}" r="10" fill="transparent" style="cursor:pointer"/>`});
+if([.75,1.5,3].includes(e.d))s+=`<circle cx="${x+10}" cy="${y}" r="1.5" fill="var(--fg)"/>`;s+=`<circle data-b="${e.bar}" data-o="${e.off}" cx="${x}" cy="${y}" r="7" fill="transparent" style="cursor:pointer"/>`});
 ME.forEach((e,i)=>{const n=ME[i+1];if(e.tie&&n&&n.p===e.p){const x1=X(e.bar,e.off),x2=X(n.bar,n.off),y=Y(e.pos)+7;s+=`<path d="M${x1+3} ${y} Q${(x1+x2)/2} ${y+10} ${x2-3} ${y}" fill="none" stroke="var(--fg)" stroke-width="1.3"/>`}});
-ME.rs.forEach(r=>{const x=X(r.bar,r.off);s+=(r.d>=2?`<rect x="${x-6}" y="${r.d>=4?38:42}" width="12" height="4" fill="var(--fg)"/>`:`<text x="${x-5}" y="52" font-size="26" fill="var(--fg)">${r.d<1?'𝄾':'𝄽'}</text>`)+`<circle data-b="${r.bar}" data-o="${r.off}" cx="${x}" cy="46" r="10" fill="transparent" style="cursor:pointer"/>`});
+ME.rs.forEach(r=>{const x=X(r.bar,r.off);s+=r.d>=2?`<rect x="${x-6}" y="${r.d>=4?38:42}" width="12" height="4" fill="var(--fg)"/>`:r.d>=1?`<path d="M${x-2} 34 L${x+4} 41 L${x-1} 47 L${x+4} 54 Q${x-3} 54 ${x-2} 59" fill="none" stroke="var(--fg)" stroke-width="2"/>`:`<circle cx="${x-3}" cy="42" r="2.6" fill="var(--fg)"/><path d="M${x-1} 43 Q${x+4} 43 ${x+5} 38 L${x-2} 58" fill="none" stroke="var(--fg)" stroke-width="1.8"/>`});
 for(let b=0;b<nb;b++)for(let j=0;j<BPB;j++)s+=`<text x="${X(b,j)}" y="103" font-size="9" text-anchor="middle" font-family="sans-serif" fill="var(--mut)">${j+1}</text>`;
 $('mst').innerHTML=s+'</svg>'}
 function kbs(v,lh,me){if(arr==='RB'&&me.length)return me.map(e=>{const[lo,hi]=range(e.n.concat(lh));return '<span style="display:inline-block;margin-right:8px">'+kb(e.n.slice(0,-1),lo,hi,nmK,lh,[e.m])+'</span>'}).join('');
 const mm=[].concat(...me.map(e=>e.n)),[lo,hi]=range(v.n.concat(lh,mm));return kb(v.n,lo,hi,nmK,lh,mm)}
 function ic(d){const f=d>=2?'none':'currentColor';return `<svg width="22" height="30" viewBox="0 0 22 30"><ellipse cx="9" cy="23" rx="6" ry="4.2" fill="${f}" stroke="currentColor" stroke-width="1.6" transform="rotate(-15 9 23)"/>${d<4?'<line x1="14.5" x2="14.5" y1="22" y2="4" stroke="currentColor" stroke-width="1.5"/>':''}${d<1?'<path d="M14.5 4 q6 5 3 12" fill="none" stroke="currentColor" stroke-width="1.5"/>':''}</svg>`}
-function buildPal(){let h='';[[4,'Whole'],[2,'Half'],[1,'Quarter'],[.5,'Eighth']].forEach(([d,n])=>h+=`<button class="pd${sel.d===d?' on':''}" data-d="${d}" title="${n}">${ic(d)}</button>`);
-h+=`<button class="pt${sel.dot?' on':''}" data-a="dot">Dotted</button><button class="pt${sel.rest?' on':''}" data-a="rest">Rest</button><span class="mut">Sharp or flat:</span>${[['key','Auto'],['#','♯'],['b','♭'],['nat','♮']].map(([v,l])=>`<button class="pt${sel.acc===v?' on':''}" data-x="${v}">${l}</button>`).join('')}<button class="pt" data-a="undo">Undo</button><button class="pt" data-a="clr">Clear melody</button>`;$('pal').innerHTML=h}
-function pb(){return $('mel').value.split('|').map(b=>b.trim().split(/\s+/).filter(Boolean)).filter(b=>b.length).map(b=>{let off=0;return b.map(tk=>{const m=tk.match(/^(?:([A-G][#b♯♭]?-?\d?)|[Rr])(?::(\d*\.?\d+))?(~)?$/);if(!m)return null;const d=+(m[2]||1),e={n:m[1]||'r',d,off,t:m[3]};off+=d;return e}).filter(Boolean)})}
+function rc(d){const c='stroke="currentColor" fill="none" stroke-width="1.6"',b='fill="currentColor"';return `<svg width="22" height="30" viewBox="0 0 22 30">${d>=4?`<line x1="3" x2="19" y1="11" y2="11" ${c}/><rect x="6" y="11" width="10" height="5" ${b}/>`:d>=2?`<line x1="3" x2="19" y1="16" y2="16" ${c}/><rect x="6" y="11" width="10" height="5" ${b}/>`:d>=1?`<path d="M8 5 L14 11 L9 16 L14 22 Q8 22 9 27" ${c}/>`:`<circle cx="8" cy="11" r="2.6" ${b}/><path d="M10 12 Q14 12 15 8 L9 26" ${c}/>`}</svg>`}
+function buildPal(){let h='';[[4,'Whole'],[2,'Half'],[1,'Quarter'],[.5,'Eighth']].forEach(([d,n])=>h+=`<button class="pd${sel.d===d&&!sel.rest?' on':''}" data-d="${d}" title="${n}">${ic(d)}</button>`);
+[[4,'Whole rest'],[2,'Half rest'],[1,'Quarter rest'],[.5,'Eighth rest']].forEach(([d,n])=>h+=`<button class="pd${sel.d===d&&sel.rest?' on':''}" data-d="${d}" data-r="1" title="${n}">${rc(d)}</button>`);
+h+=`<button class="pt${sel.dot?' on':''}" data-a="dot">Dotted</button><span class="mut">Sharp or flat:</span>${[['key','Auto'],['#','♯'],['b','♭'],['nat','♮']].map(([v,l])=>`<button class="pt${sel.acc===v?' on':''}" data-x="${v}">${l}</button>`).join('')}<button class="pt" data-a="undo">Undo</button><button class="pt" data-a="clr">Clear melody</button>`;$('pal').innerHTML=h}
+function pb(){return $('mel').value.split('|').map(b=>b.trim().split(/\s+/).filter(Boolean)).filter(b=>b.length).map(b=>{let off=0;return b.map(tk=>{const m=tk.match(/^(?:([A-G][#b♯♭]?-?\d?)(?::(\d*\.?\d+))?|[Rr]:?(\d*\.?\d+)?)(~)?$/);if(!m)return null;const d=+(m[2]||m[3]||1),e={n:m[1]||'r',d,off,t:m[4]};off+=d;return e}).filter(Boolean)})}
 function wr(B){$('mel').value=B.map(b=>{if(!b.length)return 'r:'+BPB;let t=0;const o=[];b.forEach(e=>{if(e.off>t+1e-6)o.push('r:'+(+(e.off-t).toFixed(2)));o.push(e.n+(e.d!==1?':'+e.d:'')+(e.t?'~':''));t=e.off+e.d});return o.join(' ')}).join(' | ');drawChart()}
 function place(cx,cy){const sv=$('mst').querySelector('svg');if(!sv)return;const r=sv.getBoundingClientRect(),bw=BPB*30+16,u=cx-r.left-KX+4,bar=Math.floor(u/bw);if(bar<0||bar>=NB)return;
 let off=Math.round((u-bar*bw-14)/15)/2;off=Math.max(0,Math.min(BPB-.5,off));let d=sel.d*(sel.dot?1.5:1);if(!sel.dot&&sel.d>=BPB){off=0;d=BPB}if(sel.rest)d=Math.min(d,BPB-off);let tok='r';
@@ -301,10 +308,10 @@ h+=`<div class="cc"><div class="tg" style="${col}">${t?t.lab:''}</div><div class
 h+='</div></div>'});
 $('chart').innerHTML=h||'<p class="mut">Add some chords above to see your chart.</p>';
 try{localStorage.setItem('cvt',JSON.stringify({k:ki,t:$('txt').value,o:ov,m:mn,s:sty,l:lhm,h:hand,a:shand,r:arr,M:$('mel').value,b:BPB}))}catch(e){}}
-function diat(){const sv=$('dsv')?$('dsv').value:'',D=mn?[[0,'m','m7'],[2,null,'m7b5'],[3,'','maj7'],[5,'m','m7'],[7,'m','m7'],[8,'','maj7'],[10,'','7']]:[[0,'','maj7'],[2,'m','m7'],[4,'m','m7'],[5,'','maj7'],[7,'','7'],[9,'m','m7'],[11,null,'m7b5']],RN=mn?['i','ii°','III','iv','v','VI','VII']:['I','ii','iii','IV','V','vi','vii°'];
-let h='<span class="mut">Chords in this key:</span><select id="dsv"><option value="">Triads</option><option value="7"'+(sv?' selected':'')+'>Seventh chords</option></select>';
-D.forEach((d,i)=>{const q=sv?d[2]:d[1];if(q==null)return;const c=nmK(KEYS[ki][1]+d[0])+q;h+=`<button data-c="${c}" title="${RN[i]}">${c} <small>${RN[i]}</small></button>`});$('dia').innerHTML=h}
-$('dia').onclick=e=>{const b=e.target.closest('button');if(!b)return;$('txt').value=($('txt').value.trim()+' '+b.dataset.c).trim();drawChart()};$('dia').onchange=diat;
+function diat(){const sv=dq,D=mn?[[0,'m','m7','m9'],[2,null,'m7b5','m7b5'],[3,'','maj7','maj9'],[5,'m','m7','m9'],[7,'m','m7','m7'],[8,'','maj7','maj9'],[10,'','7','9']]:[[0,'','maj7','6'],[2,'m','m7','m9'],[4,'m','m7','m7'],[5,'','maj7','maj9'],[7,'','7','13'],[9,'m','m7','m9'],[11,null,'m7b5','m7b5']],RN=mn?['i','ii°','III','iv','v','VI','VII']:['I','ii','iii','IV','V','vi','vii°'];
+let h=''+[['','Triads'],['7','Sevenths'],['x','6 & extended']].map(([v,l])=>'<button class="pt'+(sv===v?' on':'')+'" data-s="'+v+'">'+l+'</button>').join('');
+D.forEach((d,i)=>{const q=sv==='x'?d[3]:sv?d[2]:d[1];if(q==null)return;const c=nmK(KEYS[ki][1]+d[0])+q;h+=`<button data-c="${c}" title="${RN[i]}">${c} <small>${RN[i]}</small></button>`});$('dia').innerHTML=h}
+$('dia').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.s!=null){dq=b.dataset.s;diat();return}$('txt').value=($('txt').value.trim()+' '+b.dataset.c).trim();drawChart()};$('dia').onchange=diat;
 function fing(ms,L,s){const n=ms.length,iv=s[1].join(','),pc=ms[0]%12,
 T={0:[[1,2,3,1,2,3,4,5],[5,4,3,2,1,3,2,1]],7:0,2:0,9:0,4:0,11:[0,[4,3,2,1,4,3,2,1]],5:[[1,2,3,4,1,2,3,4],[5,4,3,2,1,3,2,1]],6:[[2,3,4,1,2,3,1,2],[4,3,2,1,3,2,1,4]],1:[[2,3,1,2,3,4,1,2],[3,2,1,4,3,2,1,3]],8:[[3,4,1,2,3,1,2,3],[3,2,1,4,3,2,1,3]],3:[[3,1,2,3,4,1,2,3],[3,2,1,4,3,2,1,3]],10:[[4,1,2,3,1,2,3,4],[3,2,1,4,3,2,1,3]]},
 std=[[1,2,3,1,2,3,4,5],[5,4,3,2,1,3,2,1]];
@@ -355,11 +362,11 @@ $('hand').onchange=()=>{hand=$('hand').value;ov={};drawChart()};
 $('shand').onchange=()=>{shand=$('shand').value;drawScale()};
 $('lhm').onchange=()=>{lhm=$('lhm').value;drawChart()};
 let ds=null,gh=null;const mv=e=>{if(!ds)return;if(Math.hypot(e.clientX-ds.x,e.clientY-ds.y)>6)ds.m=1;gh.style.left=e.clientX+'px';gh.style.top=e.clientY+'px'};
-$('pal').addEventListener('pointerdown',e=>{const b=e.target.closest('.pd');if(!b)return;e.preventDefault();sel.d=+b.dataset.d;$('pal').querySelectorAll('.pd').forEach(x=>x.classList.toggle('on',x===b));ds={x:e.clientX,y:e.clientY,m:0};gh=document.createElement('div');gh.className='gh';gh.innerHTML=b.innerHTML;document.body.appendChild(gh);mv(e)});
+$('pal').addEventListener('pointerdown',e=>{const b=e.target.closest('.pd');if(!b)return;e.preventDefault();sel.d=+b.dataset.d;sel.rest=b.dataset.r?1:0;$('pal').querySelectorAll('.pd').forEach(x=>x.classList.toggle('on',x===b));ds={x:e.clientX,y:e.clientY,m:0};gh=document.createElement('div');gh.className='gh';gh.innerHTML=b.innerHTML;document.body.appendChild(gh);mv(e)});
 document.addEventListener('pointermove',mv);
 document.addEventListener('pointerup',e=>{if(!ds)return;gh.remove();const m=ds.m;ds=null;if(!m)return;const c=$('mst').getBoundingClientRect();if(e.clientX>=c.left&&e.clientX<=c.right&&e.clientY>=c.top&&e.clientY<=c.bottom)place(e.clientX,e.clientY)});
 document.addEventListener('pointercancel',()=>{if(ds){gh.remove();ds=null}});
-$('pal').onclick=e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a;if(a==='dot')sel.dot=!sel.dot;else if(a==='rest')sel.rest=!sel.rest;else if(a==='undo'){if(hist.length){$('mel').value=hist.pop();drawChart()}}else if(a==='clr'){hist.push($('mel').value);$('mel').value='';drawChart()}else if(b.dataset.x)sel.acc=b.dataset.x;else if(b.dataset.d)sel.d=+b.dataset.d;buildPal()};
+$('pal').onclick=e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a;if(a==='dot')sel.dot=!sel.dot;else if(a==='undo'){if(hist.length){$('mel').value=hist.pop();drawChart()}}else if(a==='clr'){hist.push($('mel').value);$('mel').value='';drawChart()}else if(b.dataset.x)sel.acc=b.dataset.x;else if(b.dataset.d){sel.d=+b.dataset.d;sel.rest=b.dataset.r?1:0}buildPal()};
 $('pal').onchange=e=>{if(e.target.id==='acc')sel.acc=e.target.value};
 $('mst').onclick=e=>{const t=e.target.closest('[data-b]');if(t){const B=pb(),b=+t.dataset.b,o=+t.dataset.o;if(!B[b])return;hist.push($('mel').value);const q=B[b].find(x=>Math.abs(x.off-o)<1e-6),mm=q&&q.n.match(/^([A-G])[#b♯♭]?(-?\d?)$/);if(mm&&sel.acc!=='key')q.n=mm[1]+(sel.acc==='#'?'#':sel.acc==='b'?'b':'')+mm[2];else B[b]=B[b].filter(x=>Math.abs(x.off-o)>1e-6);wr(B)}else place(e.clientX,e.clientY)};
 $('arr').onchange=()=>{arr=$('arr').value;if(arr==='RM'||arr==='OC')hand='L';else if(arr==='LM'||arr==='RB')hand='R';$('hand').value=hand;if(arr!=='none'&&arr!=='RB'&&!sty){sty='shell';$('sty').value=sty}if(arr==='RB'&&!lhm){lhm='root';$('lhm').value='root'}ov={};syncArr();drawChart()};
