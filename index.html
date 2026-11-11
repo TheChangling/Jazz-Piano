@@ -23,7 +23,7 @@ main>h1,#tab-songbook>h2,#tab-scales>h2{border-bottom:4px solid var(--bd2);paddi
 button,select,textarea{font:inherit;font-size:.92rem;border:1px solid var(--bd2);background:var(--btn);color:var(--fg);padding:6px 10px;border-radius:8px}
 textarea{border-color:var(--bd)}
 input[type=number]{font:inherit;font-size:.92rem;border:1px solid var(--bd);border-radius:8px;padding:6px 10px;background:var(--card);color:var(--fg)}
-#dia button[data-c],#pal button,#pal select,#rt,#qu,#bs,#add,#nb,#clr,#play,#stop{background:var(--btn2);border-color:var(--bd)}
+#dia button[data-c],#pal button,#add,#nb,#clr,#play,#stop{background:var(--btn2);border-color:var(--bd)}
 button{cursor:pointer}textarea{width:100%;box-sizing:border-box;background:var(--card);font-family:inherit;min-height:70px}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px}
@@ -309,7 +309,7 @@ h+='</div></div>'});
 $('chart').innerHTML=h||'<p class="mut">Add some chords above to see your chart.</p>';
 try{localStorage.setItem('cvt',JSON.stringify({k:ki,t:$('txt').value,o:ov,m:mn,s:sty,l:lhm,h:hand,a:shand,r:arr,M:$('mel').value,b:BPB}))}catch(e){}}
 function diat(){const sv=dq,D=mn?[[0,'m','m7','m9'],[2,null,'m7b5','m7b5'],[3,'','maj7','maj9'],[5,'m','m7','m9'],[7,'m','m7','m7'],[8,'','maj7','maj9'],[10,'','7','9']]:[[0,'','maj7','6'],[2,'m','m7','m9'],[4,'m','m7','m7'],[5,'','maj7','maj9'],[7,'','7','13'],[9,'m','m7','m9'],[11,null,'m7b5','m7b5']],RN=mn?['i','ii°','III','iv','v','VI','VII']:['I','ii','iii','IV','V','vi','vii°'];
-let h=''+[['','Triads'],['7','Sevenths'],['x','6 & extended']].map(([v,l])=>'<button class="pt'+(sv===v?' on':'')+'" data-s="'+v+'">'+l+'</button>').join('');
+let h=''+[['','Triads'],['7','Sevenths'],['x','6 & extended']].map(([v,l])=>'<button class="pt'+(sv===v?' on':'')+'" data-s="'+v+'">'+l+'</button>').join('')+'<span style="flex-basis:100%;height:0"></span>';
 D.forEach((d,i)=>{const q=sv==='x'?d[3]:sv?d[2]:d[1];if(q==null)return;const c=nmK(KEYS[ki][1]+d[0])+q;h+=`<button data-c="${c}" title="${RN[i]}">${c} <small>${RN[i]}</small></button>`});$('dia').innerHTML=h}
 $('dia').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.s!=null){dq=b.dataset.s;diat();return}$('txt').value=($('txt').value.trim()+' '+b.dataset.c).trim();drawChart()};$('dia').onchange=diat;
 function fing(ms,L,s){const n=ms.length,iv=s[1].join(','),pc=ms[0]%12,

@@ -1,6 +1,6 @@
 // Change the version number below whenever you upload a new index.html,
 // so devices pick up the update.
-const CACHE = 'piano-studio-v5';
+const CACHE = 'piano-studio-v6';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
