@@ -39,7 +39,7 @@ button{cursor:pointer}textarea{width:100%;box-sizing:border-box;background:var(-
 .fg{font:11px sans-serif;color:var(--mut);margin-top:2px}
 .err{color:#c0392b;font-size:.9rem}
 
-.tabs{display:flex;gap:6px;margin:8px 0 14px}.tabs button{flex:1;padding:8px 6px}.tabs button.on{background:var(--on);color:var(--onfg);border-color:var(--onb)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}.tabs button{flex:1;padding:8px 6px}.tabs button.on{background:var(--on);color:var(--onfg);border-color:var(--onb)}
 .sigb{padding:2px 3px;line-height:0;background:var(--card);border-color:var(--bd)}.sigb.on{background:var(--card);outline:2px solid var(--ac)}
 .pd{touch-action:none;cursor:grab;padding:2px 9px;line-height:0}.pd.on,.pt.on{background:var(--on);color:var(--onfg);border-color:var(--on)}
 .gh{position:fixed;pointer-events:none;transform:translate(-50%,-50%);z-index:9;color:var(--ac);opacity:.9;line-height:0}
@@ -71,7 +71,7 @@ section[hidden]{display:none}
 
 </style></head><body><main>
 <h1>PIANO PRACTICE STUDIO</h1>
-<div class="tabs"><button data-t="songbook" class="on">Songbook</button><button data-t="scales">Song scales</button><button data-t="practice">Chord changes</button><button data-t="exercises">Exercises</button><button data-t="help">Instructions</button></div>
+<div class="tabs"><button data-t="songbook" class="on">Songbook</button><button data-t="scales">Song scales</button><button data-t="rcr">Performance</button><button data-t="fx">Piano Roll</button><button data-t="practice">Chord changes</button><button data-t="exercises">Exercises</button><button data-t="help">Instructions</button></div>
 <section id="tab-songbook">
 <div class="row"><label><select id="pre"><option value="">Choose a song…</option></select></label></div>
 <h2>KEY, SCALE AND FINGERING</h2>
@@ -80,7 +80,7 @@ section[hidden]{display:none}
 <div class="card"><div class="row" style="align-items:flex-start;gap:16px"><div id="staff"></div><div style="flex:1 1 260px;min-width:0"><div class="sc" id="skb"></div><div class="mut" id="sfg"></div></div></div></div>
 
 <h2>CHORDS</h2>
-<div class="row"><input id="sn" placeholder="Song name" style="font:inherit;font-size:.92rem;padding:6px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg)"><button id="sv">Save to My songs</button><button id="dl">Delete this name</button><button id="bkb">Back up songs</button><button id="rst">Restore from backup</button></div>
+<div class="row"><input id="sn" placeholder="Song name" style="font:inherit;font-size:.92rem;padding:6px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg)"><button id="sv">Save to My songs</button><button id="dl">Delete this name</button><button id="bkb">Back up songs</button><button id="rst">Restore from backup</button><button id="clr2">Clear chords &amp; melody</button></div>
 <textarea id="bk" hidden spellcheck="false" placeholder="Your backup text appears here. To restore, paste it here and press Restore."></textarea>
 <div class="row" id="dia"></div>
 <div class="row"><select id="rt"></select><select id="qu"></select><select id="bs"><option value="">no slash bass</option></select><button id="add">Add chord</button><button id="nb">New bar |</button><button id="clr">Clear</button></div>
@@ -93,8 +93,19 @@ section[hidden]{display:none}
 <div id="mmsg" class="err"></div>
 <div class="card sc" id="mst" hidden></div>
 <h2>ARRANGEMENT, VOICINGS AND FINGERINGS</h2>
-<div class="row"><label>Arrangement: <select id="arr"><option value="none">Chords only</option><option value="RM">Melody right hand, chords left</option><option value="LM">Melody left hand, chords right</option><option value="OC">Melody in octaves (right), chords left</option><option value="RB">Melody on top of chords (right), bass left</option></select></label><label id="hl">Chord in <select id="hand"><option value="R">right hand</option><option value="L">left hand</option></select></label><label>Style: <select id="sty"><option value="">Close 4-note</option><option value="shell">Shell (3rd + 7th)</option><option value="spread">Spread (3rd, 7th, 9th/13th)</option></select></label><label id="ol">Other hand: <select id="lhm"><option value="">None</option><option value="root">Root</option><option value="fifth">Root + 5th</option><option value="walk">Walking line</option></select></label><label>Tempo <input id="bpm" type="number" value="70" min="40" max="200" style="width:64px"></label><button id="play">▶ Play</button><button id="stop">■ Stop</button></div>
+<div class="row"><label>Arrangement: <select id="arr"><option value="none">Chords only</option><option value="RM">Melody right hand, chords left</option><option value="LM">Melody left hand, chords right</option><option value="OC">Melody in octaves (right), chords left</option><option value="RB">Melody on top of chords (right), bass left</option></select></label><label id="hl">Chord in <select id="hand"><option value="R">right hand</option><option value="L">left hand</option></select></label><label>Style: <select id="sty"><option value="">Close 4-note</option><option value="shell">Shell (3rd + 7th)</option><option value="spread">Spread (3rd, 7th, 9th/13th)</option></select></label><label id="ol">Other hand: <select id="lhm"><option value="">None</option><option value="root">Root</option><option value="fifth">Root + 5th</option><option value="walk">Walking line</option></select></label><label>Tempo <input id="bpm" type="number" value="70" min="40" max="200" style="width:64px"></label><button id="play">▶ Play</button><button id="stop">■ Stop</button><label>Piano sound: <select id="psnd"><option value="1">Improved</option><option value="0">Original</option></select></label></div>
 <div id="chart"></div>
+</section>
+<section id="tab-rcr" hidden>
+<div class="row"><label>Style: <select id="rsty"><option value="">Plain (layers below only)</option><option value="ev">Evans-ish ballad</option></select></label></div><p id="rstd" class="mut"></p><div class="row" id="rcsteps"></div><div class="row"><label><input type="checkbox" id="rmel" checked> Melody</label><label>Bass: <select id="rbass"><option value="0">Off</option><option value="r" selected>Roots</option><option value="5">Roots + 5ths (two-feel)</option><option value="3">Roots + 3rds (two-feel)</option></select></label><label>Chords: <select id="rchd"><option value="0">Off</option><option value="7" selected>7th chords</option><option value="x">With extensions</option></select></label><label>Rhythm: <select id="rrh"><option value="0" selected>On the beat</option><option value="x">Mixed</option><option value="a">Anticipate</option><option value="d">Delay</option></select></label><label><input type="checkbox" id="rap"> Approach chords (dominant a half step above, on beat 3)</label><button id="rplay">▶ Play</button><button id="rstop">■ Stop</button></div>
+<div id="rout"></div>
+</section>
+<section id="tab-fx" hidden>
+<h2>PIANO ROLL</h2>
+<p class="mut">Notes fall toward the keyboard and sound as they land. Green is the melody, orange the chords and blue the bass. Tempo comes from the Songbook tab.</p>
+<div class="row"><label>Play: <select id="fxsrc"><option value="song">Songbook arrangement</option><option value="rcr">Performance tab (layers and style chosen there)</option></select></label><button id="fxplay">▶ Play</button><button id="fxstop">■ Stop</button></div>
+<p id="fxmsg" class="mut"></p>
+<canvas id="fxcv" style="width:100%;height:min(70vh,460px);display:block;border-radius:10px"></canvas>
 </section>
 <section id="tab-practice" hidden>
 <p class="lead">Pick a key and a mode. Each voicing keeps most notes still and moves the rest by a step, so your hand barely travels. Highlighted keys show the notes to play.</p>
@@ -245,9 +256,25 @@ c.forEach((x,i)=>{const B=hand==='L'?60:36,sl=x.bass!=null,R=B+(sl?x.bass:x.r),u
 if(lhm==='root'){out[i]=[R];return}if(lhm==='fifth'){out[i]=[R,fifth];return}
 const nx=c[(i+1)%c.length],beats=BPB/(per[i]||1),nr=[B-12,B,B+12].map(o=>o+(nx.bass!=null?nx.bass:nx.r)).sort((a,b)=>Math.abs(a-fifth)-Math.abs(b-fifth))[0],last=beats>2?fifth:t3,ap=[nr-1,nr+1].sort((a,b)=>Math.abs(a-last)-Math.abs(b-last))[0];
 out[i]=beats>2?[R,t3,fifth,ap]:[R,ap]});return out}
-function tone(m,t,d,g){const f=440*Math.pow(2,(m-69)/12),e=ac.createGain(),lp=ac.createBiquadFilter(),T=t+d;lp.type='lowpass';lp.frequency.setValueAtTime(Math.min(10000,f*10),t);lp.frequency.exponentialRampToValueAtTime(Math.max(500,f*2.5),t+Math.min(d,1.5));
+function toneOld(m,t,d,g){const f=440*Math.pow(2,(m-69)/12),e=ac.createGain(),lp=ac.createBiquadFilter(),T=t+d;lp.type='lowpass';lp.frequency.setValueAtTime(Math.min(10000,f*10),t);lp.frequency.exponentialRampToValueAtTime(Math.max(500,f*2.5),t+Math.min(d,1.5));
 e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(g,t+.004);e.gain.exponentialRampToValueAtTime(g*.45,t+Math.min(d*.6,.5));e.gain.exponentialRampToValueAtTime(g*.15,T);e.gain.linearRampToValueAtTime(.0001,T+.25);lp.connect(e);e.connect(ac.destination);
 [1,.55,.3,.17,.1,.05].forEach((a,i)=>{const k=i+1,fr=f*k*(1+.0003*k*k);if(fr>12000)return;const o=ac.createOscillator(),p=ac.createGain();o.frequency.value=fr;p.gain.value=a/1.2;o.connect(p);p.connect(lp);o.start(t);o.stop(T+.3)})}
+/* ===== Improved piano sound (experimental) ===== */
+let PS=1;
+function pOut(){if(ac._o)return ac._o;const sr=ac.sampleRate,n=Math.floor(sr*1.4),buf=ac.createBuffer(2,n,sr);
+for(let c=0;c<2;c++){const d=buf.getChannelData(c);let y=0;for(let i=0;i<n;i++){y+=.25*((Math.random()*2-1)-y);d[i]=y*Math.pow(1-i/n,3)*2.5}}
+const cv=ac.createConvolver();cv.buffer=buf;const wet=ac.createGain(),dry=ac.createGain(),mg=ac.createGain(),cp=ac.createDynamicsCompressor();wet.gain.value=.1;mg.gain.value=.7;
+cp.threshold.value=-18;cp.knee.value=20;cp.ratio.value=3;dry.connect(mg);cv.connect(wet);wet.connect(mg);mg.connect(cp);cp.connect(ac.destination);return ac._o={dry,cv}}
+function tone(m,t,d,g){if(!PS)return toneOld(m,t,d,g);const o=pOut(),f=440*Math.pow(2,(m-69)/12),T=Math.max(.8,Math.min(9,7*Math.pow(2,-(m-48)/16))),B=.00004*Math.pow(2,(m-36)/13),
+E=Math.max(t+.06,t+d),end=E+.35,e=ac.createGain(),lp=ac.createBiquadFilter();
+lp.type='lowpass';lp.frequency.setValueAtTime(Math.min(11000,f*10),t);lp.frequency.exponentialRampToValueAtTime(Math.max(1500,f*3),t+1.2);
+e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(g*1.1,t+.005);e.gain.setValueAtTime(g*1.1,E);e.gain.exponentialRampToValueAtTime(.0001,E+.25);
+lp.connect(e);e.connect(o.dry);e.connect(o.cv);
+const K=Math.max(2,Math.min(6,Math.floor(12000/f))),A=[];let S=0;for(let k=1;k<=K;k++){const a=Math.pow(k,-1.05)*(k===2?1.3:k===3?1.1:1);A.push(a);S+=a}
+for(let k=1;k<=K;k++){const a=A[k-1]/S*1.4,fr=f*k*Math.sqrt(1+B*k*k),tau=T/(1+.7*(k-1)),pg=ac.createGain();
+pg.gain.setValueAtTime(a,t);pg.gain.exponentialRampToValueAtTime(a*.001,t+tau*6.9);pg.connect(lp);
+(k===1?[-1.5,1.5]:[0]).forEach(c=>{const os=ac.createOscillator();os.frequency.value=fr;os.detune.value=c;os.connect(pg);os.start(t);os.stop(end)})}}
+$('psnd').onchange=()=>{PS=+$('psnd').value};
 function stop(){if(ac){try{ac.close()}catch(e){}ac=null}}
 function play(){stop();if(!cur||!cur.flat.length)return;const sec=60/(+$('bpm').value||70);ac=new(window.AudioContext||window.webkitAudioContext)();ac.resume();let t=ac.currentTime+.1;const t0=t;const per={};cur.map.forEach(ids=>ids.forEach(i=>per[i]=ids.length));
 cur.flat.forEach((x,i)=>{const dur=BPB/(per[i]||1)*sec,lh=cur.LH[i]||[];if(!(arr==='RB'&&cur.ME.some(e=>e.ci===i&&e.n.length)))x.v.n.forEach(m=>tone(m,t,dur*.95,.1));
@@ -355,6 +382,7 @@ $('sv').onclick=()=>{const n=$('sn').value.trim();if(!n)return;MY[n]=[ki,$('txt'
 $('dl').onclick=()=>{const n=$('sn').value.trim();if(MY[n]){delete MY[n];saveMy();fillPre()}};
 $('bkb').onclick=()=>{const t=$('bk');t.hidden=false;t.value=JSON.stringify(MY);t.select();try{document.execCommand('copy')}catch(e){}};
 $('rst').onclick=()=>{const t=$('bk');if(t.hidden||!t.value.trim()){t.hidden=false;$('msg').textContent='Paste your backup text into the box, then press Restore again.';return}try{const o=JSON.parse(t.value);if(!o||typeof o!=='object')throw 0;Object.assign(MY,o);saveMy();fillPre();$('msg').textContent=''}catch(e){$('msg').textContent='That backup text could not be read.'}};
+$('clr2').onclick=()=>{hist.push($('mel').value);$('txt').value='';$('mel').value='';$('sn').value='';$('pre').value='';ov={};$('msg').textContent='';drawChart()};
 $('key').onchange=()=>{ki=+$('key').value;all()};
 $('mode').onchange=()=>{mn=+$('mode').value;KEYS=mn?MINK:MAJK;ki=mn?9:0;fillKeys();$('key').value=ki;all()};
 $('sty').onchange=()=>{sty=$('sty').value;ov={};drawChart()};
@@ -381,6 +409,95 @@ $('chart').onchange=e=>{const s=e.target;if(s.tagName!=='SELECT')return;if(s.val
 let init=PRE['Misty, bars 1–8 (E♭)'];
 try{const s=JSON.parse(localStorage.getItem('cvt')||'null');if(s&&typeof s.k==='number'&&s.t!=null){mn=s.m||0;KEYS=mn?MINK:MAJK;sty=s.s||'';lhm=s.l||'';hand=s.h||'R';shand=s.a||'R';arr=s.r||'none';BPB=s.b||4;mel0=s.M||'';ki=s.k;init=[s.k,s.t];ov=s.o||{}}}catch(e){}
 fillKeys();$('mode').value=mn;$('sty').value=sty;$('lhm').value=lhm;$('hand').value=hand;$('shand').value=shand;$('arr').value=arr;$('bpb').value=BPB;$('mel').value=mel0;syncArr();buildPal();ki=init[0];$('key').value=ki;$('txt').value=init[1];all();
+
+/* ===== RCR arrangement tab (experimental) ===== */
+const RS=[['Melody','Learn the melody first. Nothing else yet.'],['Roots','Left hand plays only the root of each chord under the melody. It acts as a countermelody.'],['5ths & 3rds','Connect the roots with the 5th (or 3rd) on beat 3 for a two-feel bassline.'],['Chords','Melody and root are the outer shell. Fill the inner voices with the 3rd, 5th and 7th.'],['Extensions','Swap the 5th for a 9th, 11th (minor chords) or 13th (dominants) when it does not clash with the melody.'],['Chords + bass','Seventh chords with extensions on top of the two-feel bassline.'],['Rhythm','Anticipate or delay some of the chords by an eighth note. Others stay on the beat so the syncopation still surprises.']];
+let rcs=3;const RP=[['0','0','0'],['r','0','0'],['5','0','0'],['r','7','0'],['r','x','0'],['5','x','0'],['5','x','x']];
+const p12=n=>((n%12)+12)%12,rnm=n=>nmK(n)+(Math.floor(n/12)-1);
+/* ===== Pianist style: Evans-ish ballad (experimental) ===== */
+function evVoice(c,top,pv,me,ch,mn0){const q=c.q,R=c.r,dm=['7','9','13','7b9','7#9'].includes(q),th=(R+TH(q))%12,fi=(R+(['m7b5','dim7'].includes(q)?6:7))%12,
+sv=(R+(['maj7','maj9',''].includes(q)?11:['6','m6','dim7'].includes(q)?9:10))%12,ni=(R+(q==='7b9'?1:q==='7#9'?3:2))%12,tn=(R+9)%12,
+ok=pc=>me.every(y=>{const d=Math.abs(p12(y)-pc);return d>1&&d<11});
+let P=ch==='x'?[th,sv].concat(ok(ni)?[ni]:[],dm&&q!=='7b9'&&q!=='7#9'&&ok(tn)?[tn]:[fi]):[th,fi,sv];P=P.filter((p,i)=>P.indexOf(p)===i);
+const lim=top!=null?top-2:70,C=[];
+for(let i=0;i<P.length;i++)for(let L=mn0;L<=mn0+12;L++){const lo=L+p12(P[i]-L),cl=[lo].concat(P.filter((_,j)=>j!==i).map(pc=>lo+p12(pc-lo)).sort((a,b)=>a-b));C.push(cl);
+if(cl.length>3){const d=cl.slice();d[2]-=12;C.push(d.sort((a,b)=>a-b))}}
+const cost=v=>{let t=0;if(pv){const n=Math.min(v.length,pv.length);for(let a=1;a<=n;a++)t+=Math.abs(v[v.length-a]-pv[pv.length-a])}else t=Math.abs(v[v.length-1]-62);return t+.15*(lim-v[v.length-1])+.1*(v[v.length-1]-v[0])};
+let best=null,bc=1e9;C.forEach(v=>{if(new Set(v).size<v.length||v[0]<mn0||v[v.length-1]>lim||v[v.length-1]-v[0]>16)return;const k=cost(v);if(k<bc){bc=k;best=v}});return best}
+function evFeel(N){const tot=Math.max(...N.map(n=>n.s+n.d)),w=s=>s+.07*Math.sin(s*.8)+(s>tot-BPB?Math.pow(s-(tot-BPB),2)*.04:0),h=i=>((Math.sin(i*12.9898)*43758.5453)%1+1)%1;
+N.forEach((n,i)=>{const r=n.g>=.16?'m':n.g>=.15?'b':'c',s0=n.s,e0=n.s+n.d,ns=Math.max(0,w(s0)+(r==='c'?(n.m-48)*.0015:0)+(h(i)-.5)*.03),ne=w(e0)+(r==='m'?0:.25);
+n.r=r;n.s=ns;n.d=Math.max(.1,ne-ns);n.g=({m:.17,c:.055,b:.11})[r]*(1+.18*Math.sin(Math.PI*s0/(2*BPB)))*(1+.2*(h(i+7)-.5))})}
+function rcBuild(){if(!cur||!cur.flat.length)return null;
+const{flat,ME}=cur,sp=ME.sp,bs=$('rbass').value,ch=$('rchd').value,rhy=$('rrh').value,mel=$('rmel').checked,evs=ME.filter(e=>!e.sk),N=[];
+const ev=$('rsty').value==='ev';let pv=null;let k=0;if(evs.length){const a=avg(evs.map(e=>e.p));while(a+k*12<66)k++;while(a+k*12>84)k--}
+let C=[];flat.forEach((x,i)=>{const z=sp[i];if(z)C.push({x,r:x.r,q:x.q,sym:x.sym,b:x.bass!=null?x.bass:x.r,s:z.s,d:z.e-z.s})});
+if($('rap').checked){const o=[];C.forEach((c,j)=>{o.push(c);const n=C[j+1];if(j%2===1&&n&&n.r!==c.r&&c.d>=3){const h=Math.floor(c.d/2),r=(n.b+1)%12;o.push({r,q:'7',sym:nmK(r)+'7',b:r,s:c.s+h,d:c.d-h,app:1});c.d=h}});C=o}
+if(mel)evs.forEach(e=>N.push({m:e.p+k*12,s:e.s,d:e.pd||e.d,g:.16}));
+const cards=C.map((c,j)=>{const qx={r:c.r,q:c.q},fp=(c.r+(['m7b5','dim7'].includes(c.q)?6:7))%12,tp=(c.r+TH(c.q))%12,
+me=evs.filter(e=>e.s>=c.s-1e-6&&e.s<c.s+c.d-1e-6).map(e=>e.p+k*12),te=ME.find(e=>e.s<=c.s+1e-6&&e.s+e.d>c.s+1e-6),top=te?te.p+k*12:null;
+let lh=[],rh=[],ext='';
+if(bs!=='0'){let R=36+c.b;if(R<40)R+=12;lh=[R];
+if(bs==='5'||bs==='3'){const sc=bs==='3'?tp:fp;let S=R+1+p12(sc-R-1);if(S>55)S-=12;
+if(c.d>=2){N.push({m:R,s:c.s,d:c.d/2,g:.15},{m:S,s:c.s+c.d/2,d:c.d/2,g:.15});lh=[R,S]}else N.push({m:R,s:c.s,d:c.d,g:.15})}
+else N.push({m:R,s:c.s,d:c.d,g:.15})}
+if(ch!=='0'){let t=top;if(t==null)t=67+p12(tp-67);rh=block(t,qx).filter(n=>top==null||!mel||n!==top);
+if(ch==='x'&&top!=null){const mn=['m7','m7b5','m','m6','m9'].includes(c.q),dm=['7','9','13','7b9','7#9'].includes(c.q),
+cs=mn?[[5,'11th'],[2,'9th']]:dm?[[9,'13th'],[2,'9th']]:[[2,'9th'],[9,'13th']];
+for(const[iv,nm]of cs){const pc=(c.r+iv)%12;let m=top-1;while(p12(m)!==pc)m--;
+if(top-m>=2&&me.every(y=>{const d=Math.abs(p12(y)-pc);return d!==1&&d!==11&&d!==0})){rh=rh.filter(n=>p12(n)!==fp).concat([m]).sort((a,b)=>a-b);ext=nm;break}}}
+if(ev){const v=evVoice(c,top,pv,me,ch,lh.length?Math.max(48,lh[0]+6):48)||evVoice(c,top,pv,me,ch,46);if(v){rh=v;ext='rootless, voice-led'}pv=rh}
+let sh=0;if(rhy!=='0'){const m=rhy;sh=m==='a'?(j%2?-.5:0):m==='d'?(j%2?.5:0):[0,-.5,.5][j%3];if(j===0)sh=0}
+rh.forEach(n=>N.push({m:n,s:c.s+sh,d:c.d-sh,g:.09}));if(sh)ext+=(ext?', ':'')+(sh<0?'anticipated':'delayed')}
+return{c,lh,rh,me:mel?me:[],top,ext}});
+if(ev)evFeel(N);return{N,cards}}
+function rcDraw(){const B=rcBuild();$('rcsteps').innerHTML=RS.map((s,i)=>`<button class="pt${i===rcs?' on':''}" data-s="${i}">${i+1}. ${s[0]}</button>`).join('');
+if(!B){$('rout').innerHTML='<p class="mut">Add chords (and a melody) on the Songbook tab first.</p>';return}
+const bars={};B.cards.forEach(x=>{(bars[Math.floor(x.c.s/BPB+1e-6)]=bars[Math.floor(x.c.s/BPB+1e-6)]||[]).push(x)});
+let h=!cur.ME.length&&$('rchd').value!=='0'?'<p class="mut">No melody entered, so chord voicings use a default top note.</p>':'';
+Object.keys(bars).forEach(b=>{h+=`<div class="bar"><div class="bn">Bar ${+b+1}</div><div class="bc">`;
+bars[b].forEach(x=>{const all=[].concat(x.rh,x.lh,x.me),r=all.length?range(all):null,t=n=>n.map(rnm).join(' ');
+h+=`<div class="cc"><div class="tg">${x.c.app?'approach':''}</div><div class="sym">${x.c.sym}</div><div class="sc">${r?kb(x.rh,r[0],r[1],nmK,x.lh,x.me):''}</div>
+<div class="fg">${x.me.length?'Melody: '+t(x.me)+'<br>':''}${x.rh.length?'RH inner: '+t(x.rh)+'<br>':''}${x.lh.length?'LH: '+x.lh.map(rnm).join(' → '):''}${x.ext?'<br><i>'+x.ext+'</i>':''}</div></div>`});h+='</div></div>'});
+$('rout').innerHTML=h}
+$('rcsteps').onclick=e=>{const b=e.target.closest('button');if(!b)return;rcs=+b.dataset.s;const P=RP[rcs];$('rmel').checked=true;$('rbass').value=P[0];$('rchd').value=P[1];$('rrh').value=P[2];rcDraw()};
+$('rsty').onchange=()=>{const e=$('rsty').value==='ev';if(e){$('rmel').checked=true;$('rbass').value='r';$('rchd').value='x';$('rrh').value='x'}rcs=-1;$('rstd').textContent=e?'Rootless voicings chosen to move as little as possible from chord to chord, kept below the melody. Melody louder than the inner voices, chords lightly rolled, gentle rubato with a slowing ending, and a pedal-like blur between chords. The layers below were set to roots, extensions and mixed rhythm; change any of them.':'';rcDraw()};
+['rbass','rchd','rrh','rap','rmel'].forEach(i=>$(i).onchange=()=>{rcs=-1;rcDraw()});
+$('rplay').onclick=()=>{stop();const B=rcBuild();if(!B)return;const sec=60/(+$('bpm').value||70);ac=new(window.AudioContext||window.webkitAudioContext)();ac.resume();const t0=ac.currentTime+.1;let e=0;B.N.forEach(n=>{tone(n.m,t0+n.s*sec,n.d*sec*.95,n.g);e=Math.max(e,n.s+n.d)});setTimeout(stop,(e*sec+.8)*1000)};
+$('rstop').onclick=stop;
+document.addEventListener('tabshow',()=>{if(!$('tab-rcr').hidden)rcDraw()});
+/* ===== Falling notes tab (experimental) ===== */
+const fxB=m=>[1,3,6,8,10].includes(p12(m));
+let fxN=null,fxG=null,fxT0=0,fxSec=1,fxEnd=0,fxRaf=0;const fxLead=6;
+function fxSong(){if(!cur||!cur.flat.length)return null;const N=[],per={};cur.map.forEach(ids=>ids.forEach(i=>per[i]=ids.length));let t=0;
+cur.flat.forEach((x,i)=>{const d=BPB/(per[i]||1),lh=cur.LH[i]||[];
+if(!(arr==='RB'&&cur.ME.some(e=>e.ci===i&&e.n.length)))x.v.n.forEach(m=>N.push({m,s:t,d,g:.09}));
+if(lhm==='walk')lh.forEach((m,j)=>N.push({m,s:t+j*d/lh.length,d:d/lh.length,g:.15}));else lh.forEach(m=>N.push({m,s:t,d,g:.15}));t+=d});
+cur.ME.forEach(e=>{if(!e.sk)e.n.forEach(m=>N.push({m,s:e.s,d:e.pd||e.d,g:m===e.m?.16:.09}))});return N}
+function fxGeo(N,W){const ms=N.map(n=>n.m);let lo=Math.min(...ms)-1,hi=Math.max(...ms)+1;while(hi-lo<24){hi++;lo--}while(fxB(lo))lo--;while(fxB(hi))hi++;
+let w=0;for(let m=lo;m<=hi;m++)if(!fxB(m))w++;const ww=W/w,K={};let i=0;
+for(let m=lo;m<=hi;m++){if(!fxB(m)){K[m]={x:i*ww,w:ww,b:0};i++}else K[m]={x:i*ww-ww*.3,w:ww*.6,b:1}}return{K,lo,hi}}
+function fxDraw(b){const cv=$('fxcv'),W=cv.clientWidth,H=cv.clientHeight,d=window.devicePixelRatio||1;if(!W)return;if(cv.width!==Math.round(W*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d);fxG=null}
+const x=cv.getContext('2d'),cs=getComputedStyle(document.documentElement),c=v=>cs.getPropertyValue(v).trim(),N=fxN||[];x.setTransform(d,0,0,d,0,0);
+if(!fxG)fxG=fxGeo(N.length?N:[{m:55},{m:79}],W);const K=fxG.K,kh=Math.min(120,H*.28),ky=H-kh,ppb=ky/fxLead;
+x.fillStyle=c('--bk')||'#222';x.fillRect(0,0,W,H);x.strokeStyle='rgba(255,255,255,.08)';x.lineWidth=1;
+for(let j=Math.ceil(b/BPB)*BPB;ky-(j-b)*ppb>0;j+=BPB){const y=ky-(j-b)*ppb;x.beginPath();x.moveTo(0,y);x.lineTo(W,y);x.stroke()}
+const lit={};x.font='11px sans-serif';x.textAlign='center';
+N.forEach(n=>{const k=K[n.m];if(!k)return;const y2=ky-(n.s-b)*ppb,y1=y2-n.d*ppb;if(y2<0||y1>ky)return;const col=c(n.r?({m:'--mc',b:'--lh',c:'--ac'})[n.r]:n.g>=.16?'--mc':n.g>=.15?'--lh':'--ac'),top=Math.max(0,y1),bot=Math.min(ky,y2);
+if(n.s<=b&&b<n.s+n.d)lit[n.m]=col;x.fillStyle=col;x.fillRect(k.x+1,top,k.w-2,bot-top);x.strokeStyle=c('--bk');x.lineWidth=1.5;x.strokeRect(k.x+1,top,k.w-2,bot-top);
+if(bot-top>14&&k.w>14){x.fillStyle='#fff';x.fillText(nmK(n.m),k.x+k.w/2,bot-4)}});
+x.strokeStyle='#888';x.lineWidth=1;
+for(const m in K)if(!K[m].b){x.fillStyle=lit[m]||c('--wk');x.fillRect(K[m].x+.5,ky,K[m].w-1,kh);x.strokeRect(K[m].x+.5,ky,K[m].w-1,kh)}
+for(const m in K)if(K[m].b){x.fillStyle=lit[m]||'#111';x.fillRect(K[m].x,ky,K[m].w,kh*.62);x.strokeRect(K[m].x,ky,K[m].w,kh*.62)}}
+function fxLoop(){if(!ac||!fxRaf)return;const b=(ac.currentTime-fxT0)/fxSec-fxLead;fxDraw(b);if(b>fxEnd+.5){fxHalt();return}fxRaf=requestAnimationFrame(fxLoop)}
+function fxHalt(){stop();if(fxRaf)cancelAnimationFrame(fxRaf);fxRaf=0;fxDraw(-fxLead)}
+$('fxplay').onclick=()=>{fxHalt();fxN=$('fxsrc').value==='rcr'?(rcBuild()||{}).N:fxSong();
+if(!fxN||!fxN.length){$('fxmsg').textContent='Add chords (and a melody) on the Songbook tab first.';return}$('fxmsg').textContent='';
+fxG=null;fxSec=60/(+$('bpm').value||70);ac=new(window.AudioContext||window.webkitAudioContext)();ac.resume();fxT0=ac.currentTime+.1;
+fxN.forEach(n=>tone(n.m,fxT0+(fxLead+n.s)*fxSec,n.d*fxSec*.95,n.g));fxEnd=Math.max(...fxN.map(n=>n.s+n.d));fxRaf=requestAnimationFrame(fxLoop)};
+$('fxstop').onclick=fxHalt;
+document.addEventListener('tabshow',()=>{if($('tab-fx').hidden){if(fxRaf)fxHalt()}else{fxN=null;fxG=null;fxDraw(-fxLead)}});
+window.addEventListener('resize',()=>{if(!$('tab-fx').hidden&&!fxRaf)fxDraw(-fxLead)});
+
 })();</script>
 <script>(function(){
 const FL=['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'],SH=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
@@ -533,7 +650,7 @@ $('xhand').onchange=()=>{hand=$('xhand').value;draw()};
 fillDeg();draw();
 })();
 </script>
-<script>(function(){const tb=document.querySelectorAll('.tabs button'),ids=['songbook','practice','scales','exercises','help'];
+<script>(function(){const tb=document.querySelectorAll('.tabs button'),ids=['songbook','rcr','fx','practice','scales','exercises','help'];
 function show(t){tb.forEach(b=>b.classList.toggle('on',b.dataset.t===t));ids.forEach(i=>document.getElementById('tab-'+i).hidden=i!==t);document.dispatchEvent(new Event('tabshow'));try{history.replaceState(null,'','#'+t)}catch(e){}}
 tb.forEach(b=>b.onclick=()=>show(b.dataset.t));const h=location.hash.slice(1);show(ids.includes(h)?h:'songbook')})();</script><script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
 </body></html>
