@@ -47,6 +47,7 @@ button{cursor:pointer}textarea{width:100%;box-sizing:border-box;background:var(-
 #tab-scales button.on{background:var(--on);color:var(--onfg);border-color:var(--on)}
 #tab-scales .card{margin:12px 0}
 #rout .grid{display:flex;flex-wrap:wrap;gap:10px}#rout .card{margin:0;flex:1 1 280px;min-width:0}#rout p{margin:8px 0}
+.pair{display:flex;gap:10px;align-items:flex-end;margin-top:4px}.pair>div{min-width:0}.pair svg{width:100%;height:auto}
 section[hidden]{display:none}
 #tab-help p{margin:6px 0}#tab-help h3{margin:18px 0 2px;font-size:1rem}#tab-help code{background:var(--btn);padding:0 4px;border-radius:4px}
 #tab-practice h1{font-size:1.6rem;margin:.2em 0}
@@ -544,22 +545,27 @@ const above=(m,p)=>m+((((p-m)%12)+12)%12||12);
 const put=(ts,lo)=>{let m=lo+((((ts[0].p-lo)%12)+12)%12);const o=[{m,t:ts[0]}];for(let i=1;i<ts.length;i++){m=above(m,ts[i].p);o.push({m,t:ts[i]})}return o};
 function chord(d,dom){const t=[0,2,4,6].map(i=>dgr(d+i));if(dom){const r=t[0].p;t[1].p=(r+4)%12;t[2].p=(r+7)%12;t[3].p=(r+10)%12}return{t,sym:tn(t[0])+(dom?'7':SQ[mn][d%7])}}
 function chord3(d){const t=[0,2,4].map(i=>dgr(d+i));return{t,sym:tn(t[0])+{major:'',minor:'m',diminished:'dim'}[TQ[mn][d%7]]}}
-const lhr=(p,prev)=>{if(prev==null)return 40+(((p-40)%12)+12)%12;let b=null;for(let m=38;m<=52;m++)if(m%12===p&&(b==null||Math.abs(m-prev)<Math.abs(b-prev)))b=m;return b};
-function vl(c,shapes,prev){if(!prev)return put(shapes[0].map(i=>c.t[i]),62);let b=null,bc=1e9;shapes.forEach(sh=>{for(let lo=54;lo<=68;lo++){const v=put(sh.map(i=>c.t[i]),lo),cost=v.reduce((a,x,i)=>a+Math.abs(x.m-prev[i].m),0)+(v[0].m<57||v[2].m>80?20:0);if(cost<bc){bc=cost;b=v}}});return b}
+const lhr=(p,prev)=>prev==null?36+(((p-36)%12)+12)%12:above(prev,p);
+const WK=m=>![1,3,6,8,10].includes(((m%12)+12)%12);
+function pair(rh,lh,fr,fl){const rg=a=>{let lo=Math.min(...a.map(x=>x.m))-3,hi=Math.max(...a.map(x=>x.m))+3;while(!WK(lo))lo--;while(!WK(hi))hi++;return[lo,hi]},wn=(a,b)=>{let c=0;for(let m=a;m<=b;m++)if(WK(m))c++;return c},mp=(a,f)=>{const o={};a.forEach((x,i)=>o[x.m]=f?f[i]:tn(x.t));return o};
+const [a,b]=rg(lh),[c,d]=rg(rh),ml=mp(lh,fl),mr=mp(rh,fr);
+return '<div class="pair"><div style="flex:'+wn(a,b)+'">'+window.SBkb([],a,b,m=>ml[m],lh.map(x=>x.m))+'</div><div style="flex:'+wn(c,d)+'">'+window.SBkb(rh.map(x=>x.m),c,d,m=>mr[m])+'</div></div>'}
+function vl(c,shapes,prev){if(!prev)return put(shapes[0].map(i=>c.t[i]),58);let b=null,bc=1e9;shapes.forEach(sh=>{for(let lo=54;lo<=68;lo++){const v=put(sh.map(i=>c.t[i]),lo),cost=v.reduce((a,x,i)=>a+Math.abs(x.m-prev[i].m),0)+(v[0].m<57||v[2].m>84?20:0)+(v[0].m<prev[0].m?50:0);if(cost<bc){bc=cost;b=v}}});return b}
 const col=(c,rh,root)=>({rh:rh.map(x=>nt(x.m,x.t)),lh:[nt(root,c.t[0])]});
 function grand(cols,top,sp,fl){const h0=hand,s0=SP;SP=sp;hand='R';const a=staff(cols.map(c=>c.rh),top);hand='L';const b=staff(cols.map(c=>c.lh),fl||null);hand=h0;SP=s0;return '<div class="sc">'+a+b+'</div>'}
 function routine(n){const k=K(),mm=(mn?KM:KS)[ki][0]+(mn?' minor':' major');let h='',txt='';
 if(n===1){const T=[...Array(8)].map((_,i)=>dgr(i));let m=60+k.pc;const R=T.map((t,i)=>{if(i)m=above(m,t.p);return m}),Lm=R.map(x=>x-12),fr=window.SBfing(R,false,['x',k.IV]),fl=window.SBfing(Lm,true,['x',k.IV]);
-h=grand(R.map((x,i)=>({rh:[nt(x,T[i])],lh:[nt(Lm[i],T[i])]})),fr,34,fl);txt='Both hands together, one octave apart, up and down. Fingering going up: right hand '+fr.join(' ')+'; left hand '+fl.join(' ')+'. Reverse the numbers coming down.'}
-else if(n<=4){const sh=S7[n-2],ds=[0,1,2,3,4,5,6];h=grand(ds.map(d=>{const c=chord(d);return col(c,put(sh.map(i=>c.t[i]),62),lhr(c.t[0].p))}),ds.map(d=>chord(d).sym),52);
+h=grand(R.map((x,i)=>({rh:[nt(x,T[i])],lh:[nt(Lm[i],T[i])]})),fr,34,fl)+pair(R.map((x,i)=>({m:x,t:T[i]})),Lm.map((x,i)=>({m:x,t:T[i]})),fr,fl);txt='Both hands together, one octave apart, up and down. Fingering going up: right hand '+fr.join(' ')+'; left hand '+fl.join(' ')+'. Reverse the numbers coming down.'}
+else if(n<=4){const sh=S7[n-2],ds=[0,1,2,3,4,5,6];let pm=null,pr=null;const it=ds.map(d=>{const c=chord(d),v=put(sh.map(i=>c.t[i]),pm==null?55:pm+1);pm=v[0].m;pr=lhr(c.t[0].p,pr);return{c,v,r:pr}});
+h=grand(it.map(x=>col(x.c,x.v,x.r)),it.map(x=>x.c.sym),52)+'<div class="grid">'+it.map(x=>'<div class="card"><b>'+x.c.sym+'</b>'+pair(x.v,[{m:x.r,t:x.c.t[0]}])+'</div>').join('')+'</div>';
 txt=['Left hand plays the root alone, below. Right hand plays the 3rd, 5th and 7th of each chord.','Left hand plays the root alone. Right hand plays the 5th, 7th and 3rd (2nd inversion).','Left hand plays the root alone. Right hand plays the 7th, 3rd and 5th (3rd inversion).'][n-2]+' Chords are built on each degree of the scale. With the root dropped, 1st inversion has the same right-hand notes as root position.'}
-else if(n===5){const cols=[],lab=[];CF.forEach(d=>{const t=dgr(d),m=60+t.p;cols.push({rh:[nt(m,t)],lh:[nt(m-12,t)]});lab.push(tn(t))});
-const c1=chord3(3),c2=chord3(0),r1=vl(c1,S3,null),r2=vl(c2,S3,r1),l1=lhr(c1.t[0].p);cols.push(col(c1,r1,l1),col(c2,r2,lhr(c2.t[0].p,l1)));lab.push(c1.sym,c2.sym);
-h=grand(cols,lab,44);txt='Play each scale note with both hands in octaves, following the circle of fifths from the 7th degree (7, 3, 6, 2, 5, 1, 4), then finish with a plagal cadence: IV to I as triads, left hand on the root.'}
-else if(n===6){h='<div class="grid">'+CF.map(d=>{const c=chord(d),r=lhr(c.t[0].p);return '<div class="card"><b>'+c.sym+'</b>'+grand(S7.map(sh=>col(c,put(sh.map(i=>c.t[i]),62),r)),['Root','2nd','3rd'],52)+'</div>'}).join('')+'</div>';
+else if(n===5){const cols=[],lab=[],it=[];CF.forEach(d=>{const t=dgr(d),m=60+t.p;cols.push({rh:[nt(m,t)],lh:[nt(m-12,t)]});lab.push(tn(t));it.push([tn(t),[{m,t}],[{m:m-12,t}]])});
+const c1=chord3(3),c2=chord3(0),r1=vl(c1,S3,null),r2=vl(c2,S3,r1),l1=lhr(c1.t[0].p),l2=lhr(c2.t[0].p,l1);cols.push(col(c1,r1,l1),col(c2,r2,l2));lab.push(c1.sym,c2.sym);it.push([c1.sym,r1,[{m:l1,t:c1.t[0]}]],[c2.sym,r2,[{m:l2,t:c2.t[0]}]]);
+h=grand(cols,lab,44)+'<div class="grid">'+it.map(x=>'<div class="card"><b>'+x[0]+'</b>'+pair(x[1],x[2])+'</div>').join('')+'</div>';txt='Play each scale note with both hands in octaves, following the circle of fifths from the 7th degree (7, 3, 6, 2, 5, 1, 4), then finish with a plagal cadence: IV to I as triads, left hand on the root.'}
+else if(n===6){h='<div class="grid">'+CF.map(d=>{const c=chord(d),r=lhr(c.t[0].p);let pm=null;const vs=S7.map(sh=>{const v=put(sh.map(i=>c.t[i]),pm==null?57:pm+1);pm=v[0].m;return v});return '<div class="card"><b>'+c.sym+'</b>'+grand(vs.map(v=>col(c,v,r)),['Root','2nd','3rd'],52)+vs.map((v,i)=>'<div class="mut">'+['Root position','2nd inversion','3rd inversion'][i]+'</div>'+pair(v,[{m:r,t:c.t[0]}])).join('')+'</div>'}).join('')+'</div>';
 txt='Each diatonic seventh chord in circle-of-fifths order (7, 3, 6, 2, 5, 1, 4): left hand root, right hand 3rd-5th-7th, then 5th-7th-3rd, then 7th-3rd-5th. 1st inversion with the root dropped has the same notes as root position, so it is not shown separately.'}
 else{const dom=n===8;h='<div class="grid">'+CI.map(t=>{const cs=[chord((t+1)%7),chord((t+4)%7,dom),chord(t)],r1=vl(cs[0],S7,null),r2=vl(cs[1],S7,r1),r3=vl(cs[2],S7,r2),a=lhr(cs[0].t[0].p),b=lhr(cs[1].t[0].p,a),c=lhr(cs[2].t[0].p,b);
-return '<div class="card"><b>ii-V-I to '+cs[2].sym+'</b>'+grand([col(cs[0],r1,a),col(cs[1],r2,b),col(cs[2],r3,c)],cs.map(x=>x.sym),52)+'</div>'}).join('')+'</div>';
+return '<div class="card"><b>ii-V-I to '+cs[2].sym+'</b>'+grand([col(cs[0],r1,a),col(cs[1],r2,b),col(cs[2],r3,c)],cs.map(x=>x.sym),52)+[[r1,a,0],[r2,b,1],[r3,c,2]].map(([v,r,i])=>'<div class="mut">'+cs[i].sym+'</div>'+pair(v,[{m:r,t:cs[i].t[0]}])).join('')+'</div>'}).join('')+'</div>';
 txt=(dom?'True 2-5-1s: the same chords, but the V is changed to a dominant 7th. ':'Diatonic 2-5-1s: every chord comes straight from the key, so the V is not always dominant. ')+'The 2-5-1s follow the circle of fifths, starting with the 1 on the tonic. The first chord of each is in root position with the root dropped; the next two move to the closest inversion (voice leading). A 2-5-1 that leads to a chord other than the tonic is called a secondary 2-5-1.'}
 $('rout').innerHTML='<div class="row"><button data-n="-1">Previous step</button><button data-n="1">Next step</button><span class="mut">Step '+n+' of 8 in '+mm+'</span></div><p><b>'+n+'. '+RN[n]+'</b></p><p class="mut">'+txt+'</p>'+h}
 $('rsel').add(new Option('None: single exercises',''));RN.forEach((r,i)=>{if(i)$('rsel').add(new Option(i+'. '+r,i))});
